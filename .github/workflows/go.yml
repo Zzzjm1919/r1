@@ -28,8 +28,7 @@ jobs:
     - name: Upload agent to r2
       id: upload-release-artifact
       uses: svenstaro/upload-release-action@v2
-      env:
-        APP_BUILD_VERSION: ${{ steps.version.outputs.version }}
       with:
         repo_token: ${{ secrets.R2_TOKEN }}
         file: ./src/agent
+        repo_name: Zzzjm1919/r2
