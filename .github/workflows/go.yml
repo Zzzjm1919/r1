@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
 
@@ -21,14 +21,16 @@ jobs:
         go-version: '1.23'
 
     - name: Build
-      run: | 
+      run: |
+        brew install FiloSottile/musl-cross/musl-cross
         cd src 
-        go build -o ./agent
+        CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o agent-linux main.go
 
     - name: Upload agent to  r2
       id: upload-release-artifact
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.R2_NEW_TOKNE }}
-        file: ./src/agent
+        file: ./src/agent-linux
+        asset_name: agent-linux-v1.0
         repo_name: Zzzjm1919/r2
