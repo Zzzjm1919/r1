@@ -38,14 +38,14 @@ jobs:
       with:
         repo_token: ${{ secrets.R2_NEW_TOKNE }}
         file: ./src/agent-linux-arm
-        asset_name: agent-linux-v2.0-arm
+        asset_name: agent-linux-v3.0-arm
         repo_name: Zzzjm1919/r2
 
-    - name: Upload agent-x64 to  r2
-      id: upload-release-artifact-amd
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.R2_NEW_TOKNE }}
-        file: ./src/agent-linux-amd
-        asset_name: agent-linux-v2.0-amd
-        repo_name: Zzzjm1919/r2
+#    - name: Upload agent-x64 to  r2
+#      id: upload-release-artifact-amd
+#      uses: svenstaro/upload-release-action@v2
+#      with:
+#        repo_token: ${{ secrets.R2_NEW_TOKNE }}
+#        file: ./src/agent-linux-amd
+#        asset_name: agent-linux-v2.0-amd
+#        repo_name: Zzzjm1919/r2
