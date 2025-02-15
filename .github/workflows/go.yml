@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
 
@@ -20,17 +20,16 @@ jobs:
       with:
         go-version: '1.23'
 
-#    - name: Install Dependencies
-#      run: |
-#        brew install FiloSottile/musl-cross/musl-cross
-
+    - name: Install Dependencies
+      run: |
+        brew install FiloSottile/musl-cross/musl-cross
     - name: Build
-#      env:
-#        CC: aarch64-linux-gnu-gcc
-#        CXX: aarch64-linux-musl-g++
+      env:
+        CC: aarch64-linux-gnu-gcc
+        CXX: aarch64-linux-musl-g++
       run: |
         cd src 
-        CGO_ENABLED=1 GOOS=linux GOARCH=arm64 go build -o agent-linux-arm main.go
+        CGO_ENABLED=1 GOOS=linux GOARCH=arm64 CC=aarch64-linux-gnu-gcc  CXX=aarch64-linux-musl-g++ go build -o agent-linux-arm main.go
 #        CGO_ENABLED=1 GOOS=linux GOARCH=amd64 CC=x86_64-linux-musl-gcc  CXX=x86_64-linux-musl-g++ go build -o agent-linux-amd main.go
 
     - name: Upload agent-arm to  r2
@@ -39,14 +38,14 @@ jobs:
       with:
         repo_token: ${{ secrets.R2_NEW_TOKNE }}
         file: ./src/agent-linux-arm
-        asset_name: agent-linux-v3.0-arm
+        asset_name: agent-linux-v2.0-arm
         repo_name: Zzzjm1919/r2
 
-#    - name: Upload agent-x64 to  r2
-#      id: upload-release-artifact-amd
-#      uses: svenstaro/upload-release-action@v2
-#      with:
-#        repo_token: ${{ secrets.R2_NEW_TOKNE }}
-#        file: ./src/agent-linux-amd
-#        asset_name: agent-linux-v2.0-amd
-#        repo_name: Zzzjm1919/r2
+    - name: Upload agent-x64 to  r2
+      id: upload-release-artifact-amd
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.R2_NEW_TOKNE }}
+        file: ./src/agent-linux-amd
+        asset_name: agent-linux-v2.0-amd
+        repo_name: Zzzjm1919/r2
