@@ -1,9 +1,16 @@
 package main
 
-import (
-	"fmt"
-)
+/*
+#include <stdio.h>
+
+void print_hello() {
+    printf("Hello, World from C!\n");
+}
+*/
+import "C"
+import "fmt"
 
 func main() {
-	fmt.Println("hello world")
+	C.print_hello() // 调用 C 函数
+	fmt.Println("======")
 }
